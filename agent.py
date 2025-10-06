@@ -36,7 +36,15 @@ llm = ChatGoogleGenerativeAI(
 )
 agent = initialize_agent(tools, llm, agent_type="zero-shot-react-description", verbose=True)
 
-# Example interactions
-# print(agent.run("List all pods in the default namespace"))
-# print(agent.run("Scale the deployment called frontend to 3 replicas"))
-# print(agent.run("Get logs of the pod named backend-abc123"))
+# Interactive loop for user input
+print("K8s Agent ready! Type 'exit' to quit.")
+while True:
+    user_input = input("\nEnter your command: ")
+    if user_input.lower() == 'exit':
+        break
+    try:
+        print("\nAgent response:")
+        print(agent.run(user_input))
+    except Exception as e:
+        print(f"Error: {str(e)}")
+
